@@ -35,4 +35,6 @@
     width: 64px;
     height: 64px;
     margin: 15px;
+    border-radius: 50%;
+    background-color: aquamarine;
   }

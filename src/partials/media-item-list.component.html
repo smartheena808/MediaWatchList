@@ -1,4 +1,5 @@
-<nav>
+<!--
+    <nav>
     <a (click)="getMediaItems('')">
         <img [src]="imgHome" alt = "menu picture" class="icon" />
     </a>
@@ -9,6 +10,7 @@
         <img [src]="imgSeries" alt = "series picture" class="icon" />
     </a>
 </nav>
+-->
 
 <header
     [ngClass]="{'medium-movies':medium === 'Movies', 'medium-series':medium === 'Series'}">
@@ -24,3 +26,9 @@
         [mediaItem]="mediaItem"
         (delete)="onMediaItemDelete($event)"></mw-media-item>
 </section>
+
+<footer>
+    <a routerLink="/add">
+        <img [src]="imgAdd" class="icon" />
+    </a>
+</footer>

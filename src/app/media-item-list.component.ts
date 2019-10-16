@@ -1,5 +1,6 @@
-import { Component, Input} from '@angular/core';
+import { Component } from '@angular/core';
 import { MediaItemService } from './media-item.service';
+import { ActivatedRoute } from '@angular/router';
 
 declare var require: any;
 
@@ -13,14 +14,22 @@ export class MediaItemListComponent {
     medium = '';
     mediaItems = [];
     
-    imgHome =  require('../media/04.png');
-    imgMovie = require('../media/03.png');
-    imgSeries = require('../media/02.png');
+    imgAdd =  require('../media/01.png');
+    // imgMovie = require('../media/03.png');
+    // imgSeries = require('../media/02.png');
 
-    constructor(private mediaItemService: MediaItemService){}
+    constructor(
+      private mediaItemService: MediaItemService,
+      private activatedRoute: ActivatedRoute){}
 
     ngOnInit(){
-      this.getMediaItems(this.medium);
+      this.activatedRoute.params.subscribe(params =>{
+        let medium = params['medium'];
+        if(medium.toLowerCase() === 'all'){
+          medium = '';
+        }
+        this.getMediaItems(medium);
+      });
     }
 
     onMediaItemDelete(mediaItem){
