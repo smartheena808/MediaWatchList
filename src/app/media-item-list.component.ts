@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { MediaItemService } from './media-item.service';
+
+declare var require: any;
 
 @Component({
     selector: 'mw-media-item-list',
@@ -8,15 +10,30 @@ import { MediaItemService } from './media-item.service';
 })
 
 export class MediaItemListComponent {
-    mediaItems;
+    medium = '';
+    mediaItems = [];
+    
+    imgHome =  require('../media/04.png');
+    imgMovie = require('../media/03.png');
+    imgSeries = require('../media/02.png');
 
     constructor(private mediaItemService: MediaItemService){}
 
     ngOnInit(){
-      this.mediaItems = this.mediaItemService.get();
+      this.getMediaItems(this.medium);
     }
 
     onMediaItemDelete(mediaItem){
-      this.mediaItemService.delete(mediaItem);
+      this.mediaItemService.delete(mediaItem).subscribe(() =>{
+        this.getMediaItems(this.medium);
+      });
+    }
+
+    getMediaItems(medium){
+      this.medium = medium;
+      this.mediaItemService.get(medium).subscribe(mediaItems => {
+        this.mediaItems = mediaItems
+      });
+     
     }
 }
